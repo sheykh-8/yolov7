@@ -528,6 +528,7 @@ class Model(nn.Module):
         self.model, self.save = parse_model(deepcopy(self.yaml), ch=[ch])  # model, savelist
         self.names = [str(i) for i in range(self.yaml['nc'])]  # default names
         self.inplace = self.yaml.get('inplace', True)
+        self.anchor_grid = [torch.zeros(1)] * self.nl  # init anchor grid
         # print([x.shape for x in self.forward(torch.zeros(1, ch, 64, 64))])
 
         # Build strides, anchors
