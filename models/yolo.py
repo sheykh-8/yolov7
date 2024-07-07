@@ -774,7 +774,7 @@ def parse_model(d, ch):  # model_dict, input_channels(3)
                      RepResXCSPA, RepResXCSPB, RepResXCSPC,
                      GhostCSPA, GhostCSPB, GhostCSPC,
                      STCSPA, STCSPB, STCSPC,
-                     ST2CSPA, ST2CSPB, ST2CSPC]:
+                     ST2CSPA, ST2CSPB, ST2CSPC, C3C2]:
                 args.insert(2, n)  # number of repeats
                 n = 1
         elif m is nn.BatchNorm2d:

@@ -2110,3 +2110,22 @@ def drop_path_f(x, drop_prob: float = 0., training: bool = False):
     random_tensor.floor_()  # binarize
     output = x.div(keep_prob) * random_tensor
     return output
+
+
+class C3C2(nn.Module):
+    # CSP Bottleneck with 3 convolutions
+    def __init__(self, c1, c2, n=1, shortcut=True, g=1, e=0.5):  # ch_in, ch_out, number, shortcut, groups, expansion
+        super().__init__()
+        c_ = int(c2 * e)  # hidden channels
+        self.conv = nn.Conv2d(c1, c_, 1, 1, autopad(1, None), groups=g, bias=False)
+        self.bn = nn.BatchNorm2d(c_)
+        self.act = nn.SiLU()
+        self.cv1 = Conv(2 * c_, c2, 1, act=nn.Mish())
+        self.m = nn.Sequential(*(Bottleneck(c_, c_, shortcut, g, e=1.0) for _ in range(n)))
+
+    def forward(self, x):
+        y = self.conv(x)
+        return self.cv1(torch.cat((self.m(self.act(self.bn(y))), y), dim=1))
+    
+    
+    
