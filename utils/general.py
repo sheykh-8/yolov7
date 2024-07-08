@@ -72,10 +72,10 @@ def emojis(str=''):
     # Return platform-dependent emoji-safe version of string
     return str.encode().decode('ascii', 'ignore') if platform.system() == 'Windows' else str
 
-def set_logging(rank=-1):
-    logging.basicConfig(
-        format="%(message)s",
-        level=logging.INFO if rank in [-1, 0] else logging.WARN)
+# def set_logging(rank=-1):
+#     logging.basicConfig(
+#         format="%(message)s",
+#         level=logging.INFO if rank in [-1, 0] else logging.WARN)
 
 
 def set_logging(name=None, verbose=VERBOSE):
@@ -88,7 +88,7 @@ def set_logging(name=None, verbose=VERBOSE):
     return logging.getLogger(name)
 
 
-LOGGER = set_logging('yolov5')
+LOGGER = set_logging('yolov7')
 
 def init_seeds(seed=0):
     # Initialize random number generator (RNG) seeds
