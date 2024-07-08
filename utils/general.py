@@ -85,7 +85,7 @@ def set_logging(name=None, verbose=VERBOSE):
             logging.root.removeHandler(h)  # remove all handlers associated with the root logger object
     rank = int(os.getenv('RANK', -1))  # rank in world for Multi-GPU trainings
     logging.basicConfig(format="%(message)s", level=logging.INFO if (verbose and rank in (-1, 0)) else logging.WARNING)
-    return logging.getLogger(name)
+    return logging.getLogger("yolov7")
 
 
 LOGGER = set_logging('yolov7')
